@@ -25,7 +25,9 @@ now = Time.now
 first_date = Date.new(options[:year] || now.year, options[:month] || now.month, 1)
 last_date = first_date.next_month.prev_day
 
-days = (first_date..last_date).map { |date| date.strftime('%e') }
+days = (first_date..last_date).map do |date|
+  date == Date.today ? "\e[30;47m#{date.strftime('%e')}\e[m" : date.strftime('%e')
+end
 forward_blanks = Array.new(first_date.wday, BLANK)
 backward_blanks = Array.new(NUMBER_OF_CALENDAR_CELLS - forward_blanks.size - days.size, BLANK)
 days_with_blanks = [*forward_blanks, *days, *backward_blanks]
