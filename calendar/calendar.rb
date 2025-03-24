@@ -14,7 +14,7 @@ class Calendar
     @month = month
   end
 
-  def generate
+  def weeks
     first_date = Date.new(@year, @month, 1)
     last_date = first_date.next_month.prev_day
 
@@ -24,11 +24,11 @@ class Calendar
     forward_blanks = Array.new(first_date.wday, BLANK)
     backward_blanks = Array.new(NUMBER_OF_CALENDAR_CELLS - forward_blanks.size - days.size, BLANK)
     days_with_blanks = [*forward_blanks, *days, *backward_blanks]
-    weeks = days_with_blanks.each_slice(7).map { |week| week.join(' ') }
+    days_with_blanks.each_slice(7).map { |week| week.join(' ') }
+  end
 
-    rows = ["#{first_date.month}月 #{first_date.year}".center(CALENDAR_WIDTH)]
-    rows.push(WEEK_HEADER)
-    rows.push(*weeks)
-    rows.join("\n")
+  def generate
+    title_header = "#{@month}月 #{@year}".center(CALENDAR_WIDTH)
+    [title_header, WEEK_HEADER, *weeks].join("\n")
   end
 end
