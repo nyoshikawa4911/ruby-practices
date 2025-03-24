@@ -15,7 +15,7 @@ class AnnualCalendar
     calendars = (1..12).map { |month| Calendar.new(@year, month) }
     quarterly_displays = calendars.each_slice(3).map do |three_calendars|
       three_calendars.map do |calendar|
-        ["#{calendar.month}月".center(CALENDAR_WIDTH), WEEK_HEADER, *calendar.weeks]
+        ["#{calendar.month}月".center(Calendar::CALENDAR_WIDTH), Calendar::WEEK_HEADER, *calendar.weeks]
       end
     end
     annual_calendar_rows = quarterly_displays.flat_map do |quarterly_display|
@@ -25,6 +25,6 @@ class AnnualCalendar
     spaced_annual_calendar_rows =
       annual_calendar_rows.each_slice(NUMBER_OF_QUARTER_ROWS).flat_map { |rows| rows + [''] }[0..-2]
 
-    [@year.to_s.center(CALENDAR_WIDTH * 3), *spaced_annual_calendar_rows].join("\n")
+    [@year.to_s.center(Calendar::CALENDAR_WIDTH * 3), *spaced_annual_calendar_rows].join("\n")
   end
 end

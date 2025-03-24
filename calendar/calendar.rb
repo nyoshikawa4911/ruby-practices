@@ -2,13 +2,13 @@
 
 require 'date'
 
-CALENDAR_WIDTH = 20
-WEEK_HEADER = '日 月 火 水 木 金 土'
-NUMBER_OF_WEEK_ROWS = 6
-NUMBER_OF_CALENDAR_CELLS = 7 * NUMBER_OF_WEEK_ROWS
-BLANK = '  '
-
 class Calendar
+  CALENDAR_WIDTH = 20
+  WEEK_HEADER = '日 月 火 水 木 金 土'
+  NUMBER_OF_WEEK_ROWS = 6
+  NUMBER_OF_CALENDAR_CELLS = 7 * NUMBER_OF_WEEK_ROWS
+  BLANK = '  '
+
   attr_reader :year, :month
 
   def initialize(year, month)
