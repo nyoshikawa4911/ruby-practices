@@ -21,12 +21,13 @@ class Calendar
     last_date = first_date.next_month.prev_day
 
     days = (first_date..last_date).map do |date|
-      date == Date.today ? "\e[30;47m#{date.strftime('%e')}\e[m" : date.strftime('%e')
+      formatted_date = date.strftime('%e')
+      date == Date.today ? "\e[30;47m#{formatted_date}\e[m" : formatted_date
     end
     forward_blanks = Array.new(first_date.wday, BLANK)
     backward_blanks = Array.new(NUMBER_OF_CALENDAR_CELLS - forward_blanks.size - days.size, BLANK)
-    days_with_blanks = [*forward_blanks, *days, *backward_blanks]
-    days_with_blanks.each_slice(7).map { |week| week.join(' ') }
+
+    [*forward_blanks, *days, *backward_blanks].each_slice(7).map { |week| week.join(' ') }
   end
 
   def generate
