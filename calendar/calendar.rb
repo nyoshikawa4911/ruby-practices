@@ -9,6 +9,8 @@ NUMBER_OF_CALENDAR_CELLS = 7 * NUMBER_OF_WEEK_ROWS
 BLANK = '  '
 
 class Calendar
+  attr_reader :year, :month
+
   def initialize(year, month)
     @year = year
     @month = month

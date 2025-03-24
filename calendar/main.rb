@@ -3,6 +3,7 @@
 
 require 'optparse'
 require_relative 'calendar'
+require_relative 'annual_calendar'
 
 options = {}
 option_parser = OptionParser.new
@@ -13,7 +14,10 @@ option_parser.on('-m VAL', Integer) do |month|
   options[:month] = month
 end
 option_parser.parse!
-abort '-yオプションは-mオプションと一緒に指定して下さい' if options[:year] && !options[:month]
 
-now = Time.now
-puts Calendar.new(options[:year] || now.year, options[:month] || now.month).generate
+if options[:year] && !options[:month]
+  puts AnnualCalendar.new(options[:year]).generate
+else
+  now = Time.now
+  puts Calendar.new(options[:year] || now.year, options[:month] || now.month).generate
+end
