@@ -32,6 +32,6 @@ class Calendar
 
   def generate
     title_header = "#{@month}月 #{@year}".center(CALENDAR_WIDTH)
-    [title_header, WEEK_HEADER, *weeks].join("\n")
+    [title_header, WEEK_HEADER, *weeks].map(&:rstrip).join("\n")
   end
 end
