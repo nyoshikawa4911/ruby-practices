@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
+require_relative '../entry'
 class NonExistentPathContainer
-
-  attr_reader :paths
 
   def initialize(paths)
     @paths = paths
   end
 
   def entries
-    # TODO entriesを作成して返す
+    @paths.map { |path| Entry.new(path) }
   end
 end
