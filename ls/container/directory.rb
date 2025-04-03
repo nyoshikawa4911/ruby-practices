@@ -5,6 +5,10 @@ class Directory
   attr_reader :path
 
   def initialize(path)
-    @paths = path
+    @path = path
+  end
+
+  def entries
+    # TODO entriesを作成して返す
   end
 end

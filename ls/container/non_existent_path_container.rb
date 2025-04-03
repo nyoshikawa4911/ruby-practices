@@ -7,4 +7,8 @@ class NonExistentPathContainer
   def initialize(paths)
     @paths = paths
   end
+
+  def entries
+    # TODO entriesを作成して返す
+  end
 end
