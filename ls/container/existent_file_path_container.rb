@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
 class ExistentFilePathContainer
-
-  attr_reader :paths
-
   def initialize(paths)
     @paths = paths
   end
 
   def entries
-    # TODO entriesを作成して返す
+    @paths.map { |path| Entry.new(path) }
   end
 end
