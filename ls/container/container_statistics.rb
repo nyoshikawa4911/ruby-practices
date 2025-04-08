@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ContainerStatistics
-  def max_display_name_length = @entries.map(&:display_name).max_by(&:length).length
+  def max_name_bytesize = @entries.map(&:display_name).max_by(&:bytesize).bytesize
 
   def max_nlink_digits = @entries.map(&:nlink).max.to_s.length
 
