@@ -19,7 +19,8 @@ class LS
     containers = []
     containers << NonExistentPathContainer.new(non_existing_paths) unless non_existing_paths.empty?
     containers << ExistentFilePathContainer.new(file_paths) unless file_paths.empty?
-    directory_paths.each { |path| containers << Directory.new(path) }
+    sorted_directory_paths = OptionalArgument.instance.reverse_order? ? directory_paths.sort.reverse : directory_paths.sort
+    sorted_directory_paths.each { |path| containers << Directory.new(path) }
 
     containers.map do |container|
       formatter = FormatterFactory.create(container)
