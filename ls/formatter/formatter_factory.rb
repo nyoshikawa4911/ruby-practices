@@ -9,11 +9,11 @@ require_relative 'short_formatter'
 class FormatterFactory
   def self.create(container)
     if container.instance_of?(NonExistentPathContainer)
-      NonExistentPathFormatter.new(container.entries)
+      NonExistentPathFormatter.new(container)
     elsif OptionalArgument.instance.long_format?
-      LongFormatter.new(container.entries)
+      LongFormatter.new(container)
     else
-      ShortFormatter.new(container.entries)
+      ShortFormatter.new(container)
     end
   end
 end

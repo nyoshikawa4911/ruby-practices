@@ -2,12 +2,16 @@
 
 require_relative '../entry'
 class NonExistentPathContainer
+  attr_reader :entries
 
   def initialize(paths)
     @paths = paths
+    @entries = generate_entries
   end
 
-  def entries
-    @paths.map { |path| Entry.new(path) }
+  private
+
+  def generate_entries
+    @entries = @paths.map { |path| Entry.new(path) }
   end
 end

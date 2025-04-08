@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class LongFormatter
-  def initialize(entries)
+  def initialize(container)
+    @container = container
   end
 
   def generate_content
