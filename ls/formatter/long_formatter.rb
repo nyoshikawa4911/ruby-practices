@@ -6,6 +6,13 @@ class LongFormatter
   end
 
   def generate_content
+    [
+      @container.instance_of?(Directory) ? "total #{@container.total_block_size}\n" : '',
+      format_entries
+    ].join
+  end
+
+  def format_entries
     delimiter = ' '
     @container.entries.map do |entry|
       [

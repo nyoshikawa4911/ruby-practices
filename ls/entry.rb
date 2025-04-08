@@ -32,4 +32,6 @@ class Entry
   def symbolic_link = symbolic_link? ? File.readlink(@path) : nil
 
   def symbolic_link? = @stat.symlink?
+
+  def blocks = @stat.blocks
 end
