@@ -8,7 +8,8 @@ class Entry
 
   def initialize(path, display_name = nil)
     @display_name = display_name || path
-    @stat = File::Stat.new(path) if File.exist?(path)
+    @path = path
+    @stat = File.lstat(path) if File.exist?(path)
   end
 
   def mode = FileModeFormatter.format(@stat.mode)
@@ -27,4 +28,8 @@ class Entry
   def file_size = @stat.size
 
   def modified_date = @stat.mtime
+
+  def symbolic_link = symbolic_link? ? File.readlink(@path) : nil
+
+  def symbolic_link? = @stat.symlink?
 end

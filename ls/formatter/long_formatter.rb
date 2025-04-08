@@ -16,7 +16,7 @@ class LongFormatter
         entry.group_name.ljust(@container.max_group_name_length) + delimiter * 2,
         entry.file_size.to_s.rjust(@container.max_file_size_digits) + delimiter,
         format_modified_date(entry.modified_date) + delimiter,
-        entry.display_name
+        format_display_name(entry)
       ].join
     end.join("\n")
   end
@@ -28,6 +28,14 @@ class LongFormatter
       date.strftime('%_2m %_2d %H:%M')
     else
       date.strftime('%_2m %_2d  %Y')
+    end
+  end
+
+  def format_display_name(entry)
+    if entry.symbolic_link?
+      [entry.display_name, '->', entry.symbolic_link].join(' ')
+    else
+      entry.display_name
     end
   end
 end
