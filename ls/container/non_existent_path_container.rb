@@ -12,6 +12,6 @@ class NonExistentPathContainer
   private
 
   def generate_entries
-    @entries = @paths.map { |path| Entry.new(path) }
+    @entries = @paths.sort.map { |path| Entry.new(path) }
   end
 end
