@@ -22,11 +22,12 @@ class LS
     sorted_directory_paths = OptionalArgument.instance.reverse_order? ? directory_paths.sort.reverse : directory_paths.sort
     sorted_directory_paths.each { |path| containers << Directory.new(path) }
 
-    containers.map do |container|
+    containers.each_with_object([]) do |container, result|
       formatter = FormatterFactory.create(container)
-      formatter.generate_content
-    end.join("\n")
-
+      result << "#{container.path}:" if containers.size > 1 && container.instance_of?(Directory)
+      result << formatter.generate_content
+      result << '' unless container.instance_of?(NonExistentPathContainer)
+    end.join("\n").chomp
   end
 
   private

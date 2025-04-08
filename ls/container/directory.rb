@@ -6,7 +6,7 @@ require_relative '../optional_argument'
 class Directory
   include ContainerStatistics
 
-  attr_reader :entries
+  attr_reader :path, :entries
 
   def initialize(path)
     @path = path
