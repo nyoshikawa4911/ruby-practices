@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'container_statistics'
+
 class ExistentFilePathContainer
+  include ContainerStatistics
+
   attr_reader :entries
 
   def initialize(paths)
