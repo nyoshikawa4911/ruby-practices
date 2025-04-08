@@ -6,10 +6,10 @@ class ShortFormatter
   end
 
   def generate_content
-    max_name_size = @container.entries.max { |a, b| a.display_name.size <=> b.display_name.size }.display_name.size
-    number_of_columns_before_transpose = calc_number_of_rows(max_name_size)
+    max_name_length = @container.max_display_name_length
+    number_of_columns_before_transpose = calc_number_of_rows(max_name_length)
 
-    left_aligned_names = @container.entries.map { |entry| entry.display_name.ljust(max_name_size) }
+    left_aligned_names = @container.entries.map { |entry| entry.display_name.ljust(max_name_length) }
 
     rectangular_names = left_aligned_names.each_slice(number_of_columns_before_transpose).map do |subset_names|
       blanks = Array.new(number_of_columns_before_transpose - subset_names.size, '')
@@ -23,11 +23,11 @@ class ShortFormatter
 
   private
 
-  def calc_number_of_rows(max_name_size)
+  def calc_number_of_rows(max_name_length)
     current_terminal_width = `tput cols`.to_i
 
-    # number_of_columns * max_name_size + number_of_columns <= current_terminal_width
-    number_of_columns = current_terminal_width / (max_name_size + 1)
+    # number_of_columns * max_name_length + number_of_columns <= current_terminal_width
+    number_of_columns = current_terminal_width / (max_name_length + 1)
     (@container.entries.length / number_of_columns.to_f).ceil
   end
 end
