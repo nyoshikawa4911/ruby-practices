@@ -7,7 +7,7 @@ class NonExistentPathFormatter
 
   def generate_content
     @entries.map do |entry|
-      "ls: #{entry.path}: No such file or directory"
+      "ls: #{entry.display_name}: No such file or directory"
     end.join("\n")
   end
 end

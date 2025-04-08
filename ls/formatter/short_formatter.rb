@@ -6,28 +6,28 @@ class ShortFormatter
   end
 
   def generate_content
-    max_path_size = @entries.max { |a, b| a.path.size <=> b.path.size }.path.size
-    number_of_columns_before_transpose = calc_number_of_rows(max_path_size)
+    max_name_size = @entries.max { |a, b| a.display_name.size <=> b.display_name.size }.display_name.size
+    number_of_columns_before_transpose = calc_number_of_rows(max_name_size)
 
-    left_aligned_paths = @entries.map { |entry| entry.path.ljust(max_path_size) }
+    left_aligned_names = @entries.map { |entry| entry.display_name.ljust(max_name_size) }
 
-    rectangular_paths = left_aligned_paths.each_slice(number_of_columns_before_transpose).map do |subset_paths|
-      blanks = Array.new(number_of_columns_before_transpose - subset_paths.size, '')
-      [*subset_paths, *blanks]
+    rectangular_names = left_aligned_names.each_slice(number_of_columns_before_transpose).map do |subset_names|
+      blanks = Array.new(number_of_columns_before_transpose - subset_names.size, '')
+      [*subset_names, *blanks]
     end
 
-    rectangular_paths.transpose.map do |subset_paths|
-      subset_paths.join(' ')
+    rectangular_names.transpose.map do |subset_names|
+      subset_names.join(' ')
     end.join("\n")
   end
 
   private
 
-  def calc_number_of_rows(max_path_size)
+  def calc_number_of_rows(max_name_size)
     current_terminal_width = `tput cols`.to_i
 
-    # number_of_columns * max_path_size + number_of_columns <= current_terminal_width
-    number_of_columns = current_terminal_width / (max_path_size + 1)
+    # number_of_columns * max_name_size + number_of_columns <= current_terminal_width
+    number_of_columns = current_terminal_width / (max_name_size + 1)
     (@entries.length / number_of_columns.to_f).ceil
   end
 end
