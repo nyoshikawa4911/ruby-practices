@@ -2,6 +2,7 @@
 
 require_relative 'container_statistics'
 require_relative '../optional_argument'
+require_relative '../entry'
 
 class ExistentFilePathContainer
   include ContainerStatistics
