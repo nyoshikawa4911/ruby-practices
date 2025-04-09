@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'etc'
+require './ext/mac_extended_attribute'
 require_relative 'file_mode_formatter'
 
 class Entry
@@ -14,10 +15,7 @@ class Entry
 
   def mode = FileModeFormatter.format(@stat.mode)
 
-  def extended_attribute
-    # todo 拡張属性の取得
-    ' '
-  end
+  def extended_attribute = MacExtendedAttribute.get_xattr(@path)
 
   def nlink = @stat.nlink
 
