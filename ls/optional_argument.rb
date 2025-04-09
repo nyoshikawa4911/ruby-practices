@@ -6,15 +6,13 @@ require 'optparse'
 class OptionalArgument
   include Singleton
 
-  def initialize
-    arguments = ARGV.getopts('arl')
-    @all = arguments['a']
-    @reverse = arguments['r']
-    @long = arguments['l']
-  end
+  def setup(options)
+    return if @initialized
 
-  def self.setup
-    instance
+    @all = options['a']
+    @reverse = options['r']
+    @long = options['l']
+    @initialized = true
   end
 
   def show_all? = @all

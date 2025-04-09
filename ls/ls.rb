@@ -35,5 +35,6 @@ class LS
   attr_reader :paths
 end
 
-OptionalArgument.setup
+options = ARGV.getopts('arl')
+OptionalArgument.instance.setup(options)
 puts LS.new(ARGV.empty? ? [Dir.pwd] : ARGV).generate
