@@ -9,7 +9,9 @@ class ShortFormatter
     max_name_width = @container.max_name_bytesize
     number_of_columns_before_transpose = calc_number_of_rows(max_name_width)
 
-    left_aligned_names = @container.entries.map { |entry| ljust_for_display_width(entry.display_name, max_name_width) }
+    names = @container.entries.map(&:display_name)
+    sorted_names = OptionalArgument.instance.reverse_order? ? names.sort.reverse : names.sort
+    left_aligned_names = sorted_names.map { |name| ljust_for_display_width(name, max_name_width) }
 
     rectangular_names = left_aligned_names.each_slice(number_of_columns_before_transpose).map do |subset_names|
       blanks = Array.new(number_of_columns_before_transpose - subset_names.size, '')

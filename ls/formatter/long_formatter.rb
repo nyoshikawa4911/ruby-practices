@@ -14,7 +14,7 @@ class LongFormatter
 
   def format_entries
     delimiter = ' '
-    @container.entries.map do |entry|
+    sorted_entries.map do |entry|
       [
         entry.mode,
         entry.extended_attribute + delimiter,
@@ -29,6 +29,14 @@ class LongFormatter
   end
 
   private
+
+  def sorted_entries
+    if OptionalArgument.instance.reverse_order?
+      @container.entries.sort_by(&:display_name).reverse
+    else
+      @container.entries.sort_by(&:display_name)
+    end
+  end
 
   def format_modified_date(date)
     if date.year == Time.now.year
