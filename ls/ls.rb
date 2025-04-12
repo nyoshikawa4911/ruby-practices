@@ -29,10 +29,8 @@ class LS
 
   private
 
-  attr_reader :paths
-
   def generate_containers
-    existing_paths, non_existing_paths = paths.partition { |path| File.exist?(path) }
+    existing_paths, non_existing_paths = @paths.partition { |path| File.exist?(path) }
     directory_paths, file_paths = existing_paths.partition { |path| File.ftype(path) == 'directory' }
     sorted_directory_paths = OptionalArgument.instance.reverse_order? ? directory_paths.sort.reverse : directory_paths.sort
 
