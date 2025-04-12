@@ -7,7 +7,7 @@ class NonExistentPathFormatter
 
   def generate_content
     @container.entries.sort_by(&:display_name).map do |entry|
-      "ls: #{entry.display_name}: No such file or directory"
-    end.join("\n") + "\n"
+      "ls: #{entry.display_name}: No such file or directory\n"
+    end.join
   end
 end

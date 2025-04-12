@@ -25,9 +25,10 @@ class LongFormatter
         entry.group_name.ljust(@container.max_group_name_length) + delimiter * 2,
         entry.file_size.to_s.rjust(@container.max_file_size_digits) + delimiter,
         format_modified_date(entry.modified_date) + delimiter,
-        format_display_name(entry)
+        format_display_name(entry),
+        "\n"
       ].join
-    end.join("\n") + "\n"
+    end.join
   end
 
   private

@@ -21,8 +21,8 @@ class ShortFormatter
     end
 
     rectangular_names.transpose.map do |subset_names|
-      subset_names.join(' ')
-    end.map(&:rstrip).join("\n") + "\n"
+      "#{subset_names.join(' ').rstrip}\n"
+    end.join
   end
 
   private
