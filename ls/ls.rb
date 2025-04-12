@@ -13,15 +13,7 @@ class LS
   end
 
   def generate
-    existing_paths, non_existing_paths = paths.partition { |path| File.exist?(path) }
-    directory_paths, file_paths = existing_paths.partition { |path| File.ftype(path) == 'directory' }
-
-    containers = []
-    containers << NonExistentPathContainer.new(non_existing_paths) unless non_existing_paths.empty?
-    containers << ExistentFilePathContainer.new(file_paths) unless file_paths.empty?
-    sorted_directory_paths = OptionalArgument.instance.reverse_order? ? directory_paths.sort.reverse : directory_paths.sort
-    sorted_directory_paths.each { |path| containers << Directory.new(path) }
-
+    containers = generate_containers
     containers.each_with_object([]) do |container, result|
       formatter = FormatterFactory.create(container)
       content = []
@@ -38,6 +30,19 @@ class LS
   private
 
   attr_reader :paths
+
+  def generate_containers
+    existing_paths, non_existing_paths = paths.partition { |path| File.exist?(path) }
+    directory_paths, file_paths = existing_paths.partition { |path| File.ftype(path) == 'directory' }
+    sorted_directory_paths = OptionalArgument.instance.reverse_order? ? directory_paths.sort.reverse : directory_paths.sort
+
+    containers = []
+    containers << NonExistentPathContainer.new(non_existing_paths) unless non_existing_paths.empty?
+    containers << ExistentFilePathContainer.new(file_paths) unless file_paths.empty?
+    sorted_directory_paths.each_with_object(containers) do |dir_path, result|
+      result << Directory.new(dir_path)
+    end
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
