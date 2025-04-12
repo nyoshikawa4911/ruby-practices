@@ -22,7 +22,7 @@ class ShortFormatter
 
     rectangular_names.transpose.map do |subset_names|
       subset_names.join(' ')
-    end.map(&:rstrip).join("\n")
+    end.map(&:rstrip).join("\n") + "\n"
   end
 
   private

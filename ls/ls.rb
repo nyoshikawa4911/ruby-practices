@@ -24,10 +24,15 @@ class LS
 
     containers.each_with_object([]) do |container, result|
       formatter = FormatterFactory.create(container)
-      result << "#{container.path}:" if containers.size > 1 && container.instance_of?(Directory)
-      result << formatter.generate_content
-      result << '' unless container.instance_of?(NonExistentPathContainer)
-    end.join("\n").chomp
+      content = []
+      content << "#{container.path}:\n" if containers.size > 1 && container.instance_of?(Directory)
+      content << formatter.generate_content
+      result << if container.instance_of?(NonExistentPathContainer) && containers.size > 1
+                  content.join.chomp
+                else
+                  content.join
+                end
+    end.join("\n")
   end
 
   private

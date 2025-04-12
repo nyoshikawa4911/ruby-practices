@@ -27,7 +27,7 @@ class LongFormatter
         format_modified_date(entry.modified_date) + delimiter,
         format_display_name(entry)
       ].join
-    end.join("\n")
+    end.join("\n") + "\n"
   end
 
   private
