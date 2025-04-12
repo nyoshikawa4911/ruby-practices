@@ -40,6 +40,8 @@ class LS
   attr_reader :paths
 end
 
-options = ARGV.getopts('arl')
-OptionalArgument.instance.setup(options)
-puts LS.new(ARGV.empty? ? [Dir.pwd] : ARGV).generate
+if __FILE__ == $PROGRAM_NAME
+  options = ARGV.getopts('arl')
+  OptionalArgument.instance.setup(options)
+  puts LS.new(ARGV.empty? ? [Dir.pwd] : ARGV).generate
+end
