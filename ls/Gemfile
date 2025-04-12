@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+group :development, :test do
+  gem 'fakefs', require: false
+  gem 'irb', require: false # fakefsで出る警告抑制のため（内容：ruby 3.5.0 から irb がデフォルトgemではなくなる）
+  gem 'rspec'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+end
