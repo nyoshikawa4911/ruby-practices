@@ -13,6 +13,8 @@ class LongFormatter
   end
 
   def format_entries
+    return '' if @container.entries.empty?
+
     delimiter = ' '
     sorted_entries.map do |entry|
       [

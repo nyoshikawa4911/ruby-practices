@@ -6,6 +6,8 @@ class ShortFormatter
   end
 
   def generate_content
+    return '' if @container.entries.empty?
+
     max_name_width = @container.max_name_bytesize
     number_of_columns_before_transpose = calc_number_of_rows(max_name_width)
 
